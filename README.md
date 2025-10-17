@@ -2,8 +2,7 @@
 
 ## Installing the Helical SDK on Windows
 
-The upstream `helical` PyPI wheel depends on `louvain==0.8.2`, which only ships
-Linux binaries.  Building it from source fails on Windows because it requires
+The upstream `helical` PyPI wheel depends on `pytorch==2.6.0 --index-url https://download.pytorch.org/whl/cu126` & `louvain==0.8.2`.  Building from source will fail on Windows because it requires
 native igraph/CMake tooling that is not readily available.
 
 Use the helper script instead:
