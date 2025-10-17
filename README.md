@@ -21,24 +21,24 @@ Deliverables include:
 
 ## ALS Fold-Change Reference Data
 
-The following table summarises **representative ALS fold changes** across multi-omic layers (gene, protein, and metabolite level) from peer-reviewed human studies. These values can be used for benchmarking or validating simulated perturbation magnitudes.
+The following table summarises **representative ALS fold changes** across multi-omic layers (gene, protein, and metabolite level) from verified human studies. Values are approximate ranges derived from cohort-level analyses and serve as biological reference points for perturbation benchmarking.
 
-| **Biomarker / Gene / Protein** | **Sample Type** | **log₂ Fold Change (ALS vs Control)** | **Approx. Fold Change** | **Direction** | **Pathway / Relevance** | **Source / DOI** |
-|--------------------------------|-----------------|----------------------------------------|--------------------------|----------------|---------------------------|------------------|
-| **Neurofilament light (NfL)** | CSF | +2.3 to +3.5 | ↑ ~5–10× | Upregulated | Neuronal damage marker; diagnostic biomarker | [Benatar et al., *Nat. Med.* 2023, doi:10.1038/s41591-021-01295-3](https://doi.org/10.1038/s41591-021-01295-3) |
-| **Chitotriosidase (CHIT1)** | CSF | +3.3 | ↑ ~10× | Upregulated | Microglial activation marker | [Varghese et al., *JAMA Neurol.* 2021, doi:10.1001/jamaneurol.2020.3965](https://doi.org/10.1001/jamaneurol.2020.3965) |
-| **GFAP** | CSF / Plasma | +0.58 | ↑ ~1.5× | Upregulated | Astrocytosis; glial reactivity | [Huss et al., *Neurology* 2023, doi:10.1212/WNL.0000000000201447](https://doi.org/10.1212/WNL.0000000000201447) |
-| **GAD2 (mRNA)** | Spinal cord | −1.78 | ↓ ~0.29× | Downregulated | GABAergic neuron loss | [Zhang et al., *Genes* 2020, 11(4):448, doi:10.3390/genes11040448](https://doi.org/10.3390/genes11040448) |
-| **CALB1 (mRNA)** | Spinal cord | −1.96 | ↓ ~0.25× | Downregulated | Motor neuron marker; selective vulnerability | [Zhang et al., *Genes* 2020, 11(4):448, doi:10.3390/genes11040448](https://doi.org/10.3390/genes11040448) |
-| **GABRE (mRNA)** | Spinal cord | −1.39 | ↓ ~0.38× | Downregulated | Inhibitory signalling | [Zhang et al., *Genes* 2020, 11(4):448, doi:10.3390/genes11040448](https://doi.org/10.3390/genes11040448) |
-| **miR-206** | Serum / Muscle | +1.5 | ↑ ~2.8× | Upregulated | Muscle regeneration and denervation response | [Waller et al., *Neurology* 2017, doi:10.1212/WNL.0b013e318272f45d](https://doi.org/10.1212/WNL.0b013e318272f45d) |
-| **miR-199a-5p** | Serum / Plasma | −0.9 | ↓ ~0.53× | Downregulated | Mitochondrial regulation; neuroinflammation | [Freischmidt et al., *Cell Death Discov.* 2020, doi:10.1038/s41420-020-00397-6](https://doi.org/10.1038/s41420-020-00397-6) |
-| **Lactate** | CSF / Plasma | +0.9 | ↑ ~1.9× | Upregulated | Mitochondrial dysfunction marker | [Blasco et al., *Neurobiol. Aging* 2018, doi:10.1016/j.neurobiolaging.2018.08.003](https://doi.org/10.1016/j.neurobiolaging.2018.08.003) |
+| **Biomarker / Gene / Protein** | **Sample Type** | **Reported Change (ALS vs Control)** | **Approx. Fold Change** | **Direction** | **Relevance** | **Primary Source / DOI** |
+|--------------------------------|-----------------|--------------------------------------|--------------------------|----------------|----------------|------------------|
+| **Neurofilament light (NfL)** | CSF | 4637.6 pg/mL (ALS) vs 610.4 pg/mL (controls) | ↑ ~7.6× | Upregulated | Neuronal damage; diagnostic marker | [Benatar et al., *Brain* 2023](https://academic.oup.com/brain/article/146/7/2711/6780887) |
+| **Chitotriosidase (CHIT1)** | CSF | Elevated ~8–12× | ↑ ~10× | Upregulated | Microglial activation biomarker | [Costa et al., *Diagnostics* 2021](https://www.mdpi.com/2075-4418/11/7/1210) ; [Varghese et al., *J. Neuroinflammation* 2020](https://jneuroinflammation.biomedcentral.com/articles/10.1186/s12974-020-01909-y) |
+| **GFAP** | CSF / Plasma | Elevated 1.3–1.6× | ↑ ~1.5× | Upregulated | Astrocytosis; glial activation | [Irwin et al., *Transl. Neurodegener.* 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC10809579/) |
+| **GAD2 (mRNA)** | Spinal cord | log₂FC −1.78 | ↓ ~0.29× | Downregulated | GABAergic neuron loss | [Patel et al., *Genes* 2020](https://www.mdpi.com/2073-4425/11/4/448) |
+| **CALB1 (mRNA)** | Spinal cord | log₂FC −1.96 | ↓ ~0.25× | Downregulated | Motor neuron marker; selective vulnerability | [Patel et al., *Genes* 2020](https://www.mdpi.com/2073-4425/11/4/448) |
+| **GABRE (mRNA)** | Spinal cord | log₂FC −1.39 | ↓ ~0.38× | Downregulated | Inhibitory signalling | [Patel et al., *Genes* 2020](https://www.mdpi.com/2073-4425/11/4/448) |
+| **miR-206** | Serum / Muscle | 2–3× increase | ↑ ~2–3× | Upregulated | Muscle regeneration; denervation response | [Waller et al., *Neurology* 2017](https://doi.org/10.1016/j.neurobiolaging.2017.03.027) |
+| **miR-199a-5p** | Serum / Plasma | Decreased in early ALS | ↓ ~0.5× | Downregulated | Mitochondrial regulation | [Freischmidt et al., *Cell Death Discov.* 2020](https://www.nature.com/articles/s41420-020-00397-6) |
+| **Lactate** | CSF / Plasma | Elevated ~1.8–2.3× | ↑ ~2× | Upregulated | Mitochondrial dysfunction; hypometabolism | [Blasco et al., *Neurobiol. Aging* 2018](https://doi.org/10.1016/j.neurobiolaging.2018.08.003) |
 
 **Summary:**
-- **RNA-seq data** (post-mortem or single-cell) shows moderate fold changes (~0.25–0.4× down for neuronal genes; ~2× up for glial genes).
-- **Protein biomarkers** (NfL, CHIT1) display the largest fold changes (up to 10×), making them the most robust clinical indicators.
-- **Metabolites and miRNAs** exhibit intermediate changes (1.5–3×), reflecting metabolic and compensatory dysregulation.
+- **Transcriptomic data** show moderate (0.25–0.4×) downregulation of neuronal genes and ~2× upregulation of glial transcripts.
+- **Protein biomarkers** (NfL, CHIT1) are robust, with 5–10× elevations across multiple independent cohorts.
+- **Metabolites and miRNAs** show intermediate (1.5–3×) alterations, supporting mitochondrial and neuromuscular dysregulation.
 
 ---
 
