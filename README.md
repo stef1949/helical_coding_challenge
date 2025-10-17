@@ -1,3 +1,14 @@
+
+<div align="center">
+  <p><a href="https://helical.readthedocs.io/"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo_and_text_v2_white.png">
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo_and_text_v2.png">
+    <img alt="Helical Logo" src="docs/assets/logo_and_text_v2_white.png" width="200">
+  </picture>
+  </a></p>
+</div>
+
 # Helical Coding Challenge - Computational Biology
 
 Author: Steph Ritchie (MSc Genetic Manipulation & Molecular Biosciences)  
