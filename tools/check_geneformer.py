@@ -45,9 +45,9 @@ def check_geneformer_setup():
     all_required = True
     for display_name, package_name in required_packages.items():
         if check_package(package_name):
-            print(f"✓ {display_name:15} - Installed")
+            print(f"-> {display_name:15} - Installed")
         else:
-            print(f"✗ {display_name:15} - NOT INSTALLED")
+            print(f"-  {display_name:15} - NOT INSTALLED")
             all_required = False
     
     print("\n2. Checking Optional Packages (GeneFormer):")
@@ -56,14 +56,14 @@ def check_geneformer_setup():
     transformers_available = check_package('transformers')
     
     if helical_available:
-        print(f"✓ {'helical':15} - Installed")
+        print(f"-> {'helical':15} - Installed")
     else:
-        print(f"✗ {'helical':15} - NOT INSTALLED")
+        print(f"-  {'helical':15} - NOT INSTALLED")
     
     if transformers_available:
-        print(f"✓ {'transformers':15} - Installed")
+        print(f"-> {'transformers':15} - Installed")
     else:
-        print(f"✗ {'transformers':15} - NOT INSTALLED")
+        print(f"-  {'transformers':15} - NOT INSTALLED")
     
     print("\n3. Testing GeneFormer Import Methods:")
     print("-" * 60)
@@ -71,29 +71,29 @@ def check_geneformer_setup():
     # Test Method 1: Helical new API
     try:
         from helical import Geneformer, GeneformerConfig
-        print("✓ Method 1: from helical import Geneformer")
+        print("-> Method 1: from helical import Geneformer")
         method1_works = True
     except ImportError as e:
-        print(f"✗ Method 1 failed: {str(e)[:50]}")
+        print(f"-  Method 1 failed: {str(e)[:50]}")
         method1_works = False
     
     # Test Method 2: Helical models API
     try:
         from helical.models.geneformer.model import Geneformer
         from helical.models.geneformer.geneformer_config import GeneformerConfig
-        print("✓ Method 2: from helical.models.geneformer")
+        print("-> Method 2: from helical.models.geneformer")
         method2_works = True
     except ImportError as e:
-        print(f"✗ Method 2 failed: {str(e)[:50]}")
+        print(f"-  Method 2 failed: {str(e)[:50]}")
         method2_works = False
     
     # Test Method 3: Direct transformers
     try:
         from transformers import AutoModel, AutoTokenizer
-        print("✓ Method 3: from transformers (direct)")
+        print("-> Method 3: from transformers (direct)")
         method3_works = True
     except ImportError as e:
-        print(f"✗ Method 3 failed: {str(e)[:50]}")
+        print(f"-  Method 3 failed: {str(e)[:50]}")
         method3_works = False
     
     geneformer_available = method1_works or method2_works or method3_works
@@ -115,7 +115,7 @@ def check_geneformer_setup():
     print("\n5. GeneFormer Status:")
     print("-" * 60)
     if geneformer_available:
-        print("✓ GeneFormer can be imported")
+        print("-> GeneFormer can be imported")
         if method1_works:
             print("  Primary method: helical (new API)")
         elif method2_works:
@@ -123,7 +123,7 @@ def check_geneformer_setup():
         elif method3_works:
             print("  Primary method: transformers (direct)")
     else:
-        print("✗ GeneFormer cannot be imported")
+        print("-  GeneFormer cannot be imported")
         print("\nTo install GeneFormer:")
         if not helical_available:
             print("  pip install helical")
@@ -133,22 +133,22 @@ def check_geneformer_setup():
     print("\n6. Recommendations:")
     print("-" * 60)
     if not all_required:
-        print("⚠ Install missing required packages:")
+        print("[warn] Install missing required packages:")
         for display_name, package_name in required_packages.items():
             if not check_package(package_name):
                 print(f"  pip install {package_name}")
     
     if not geneformer_available:
-        print("\n⚠ For GeneFormer functionality, install ONE of:")
+        print("\n[warn] For GeneFormer functionality, install ONE of:")
         print("  Option 1 (Recommended): pip install helical")
         print("  Option 2 (Alternative): pip install transformers")
         print("\nNote: The notebook includes automatic PCA fallback")
         print("      if GeneFormer is unavailable")
     
     if all_required and geneformer_available:
-        print("✓ All systems ready! You can proceed with Task 2.")
+        print("-> All systems ready! You can proceed with Task 2.")
     elif all_required:
-        print("✓ Required packages ready.")
+        print("-> Required packages ready.")
         print("  GeneFormer unavailable but PCA fallback will work.")
     
     print("\n" + "="*60)
@@ -175,18 +175,18 @@ def test_geneformer_loading():
         model, tokenizer, method = initialize_geneformer()
         
         if model is not None:
-            print(f"\n✓ GeneFormer model loaded successfully via {method}!")
+            print(f"\n-> GeneFormer model loaded successfully via {method}!")
             return True
         else:
-            print("\n✗ Could not load GeneFormer with any method")
+            print("\n-  Could not load GeneFormer with any method")
             return False
         
     except ImportError:
-        print("✗ Cannot import geneformer_helper module")
+        print("-  Cannot import geneformer_helper module")
         print("  Make sure geneformer_helper.py is in the same directory")
         return False
     except Exception as e:
-        print(f"✗ Error loading GeneFormer: {e}")
+        print(f"-  Error loading GeneFormer: {e}")
         print("\nTroubleshooting:")
         print("  1. Check internet connection (model downloads from HuggingFace)")
         print("  2. Ensure sufficient disk space (~1GB)")
@@ -216,12 +216,12 @@ def create_test_data():
         adata.var_names = [f"Gene_{i}" for i in range(n_genes)]
         adata.obs_names = [f"Cell_{i}" for i in range(n_cells)]
         
-        print(f"✓ Created test dataset: {n_cells} cells × {n_genes} genes")
+        print(f"-> Created test dataset: {n_cells} cells x {n_genes} genes")
         
         return adata
         
     except Exception as e:
-        print(f"✗ Error creating test data: {e}")
+        print(f"-  Error creating test data: {e}")
         return None
 
 if __name__ == "__main__":
@@ -242,9 +242,9 @@ if __name__ == "__main__":
     if args.test_load:
         success = test_geneformer_loading()
         if success:
-            print("\n✓ GeneFormer is fully operational!")
+            print("\n-> GeneFormer is fully operational!")
         else:
-            print("\n⚠ GeneFormer loading failed - will use PCA fallback")
+            print("\n[warn] GeneFormer loading failed - will use PCA fallback")
     
     # Optionally install packages
     if args.install:
@@ -257,17 +257,17 @@ if __name__ == "__main__":
             if not check_package(package):
                 try:
                     install_package(package)
-                    print(f"✓ {package} installed")
+                    print(f"-> {package} installed")
                 except Exception as e:
-                    print(f"✗ Failed to install {package}: {e}")
+                    print(f"-  Failed to install {package}: {e}")
     
     # Final summary
     print("\n" + "="*60)
     print("SUMMARY")
     print("="*60)
     if geneformer_available:
-        print("✓ GeneFormer is available and ready to use")
+        print("-> GeneFormer is available and ready to use")
     else:
-        print("ℹ GeneFormer not available")
+        print("[info] GeneFormer not available")
         print("  The notebook will automatically use PCA fallback")
         print("  This still works well for the challenge!")

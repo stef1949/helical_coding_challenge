@@ -1,158 +1,154 @@
-# 🧬 Helical Coding Challenge — Computational Biology
+# Helical Coding Challenge - Computational Biology
 
-### Author: **Steph Ritchie (MSc Genetic Manipulation & Molecular Biosciences)**
-
-**Project:** *In-Silico Gene Perturbation and Embedding Analysis for ALS*
-**Date:** October 2025
-
----
-
-## 📖 Overview
-
-This repository contains the implementation of the **Helical Computational Biology Coding Challenge**, focused on **simulation-based gene perturbation** and **latent-space embedding analysis** using **GeneFormer_V2 (gf-12L-95M-i4096)**.
-The goal is to simulate *in-silico* gene up-/down-regulation (“knock-up” / “knock-down”) events, apply them to disease-specific targets in **amyotrophic lateral sclerosis (ALS)**, and interpret their downstream effects in an embedding space derived from foundation models.
+Author: Steph Ritchie (MSc Genetic Manipulation & Molecular Biosciences)  
+Project: In-silico gene perturbation and embedding analysis for ALS  
+Date: October 2025
 
 ---
 
-## 🧩 Repository Structure
+## Overview
 
-| File                                                 | Description                                                                                                                                                  |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `task1_perturbation_workflow.ipynb`                  | Defines a scalable *in-silico perturbation pipeline* for gene knock-up and knock-down simulation.                                                            |
-| `task2_als_perturbations.ipynb`                      | Applies the workflow to **ALS-related genes**, generates perturbations on control vs. diseased expression profiles, and embeds them using **GeneFormer_V2**. |
-| `task3_embedding_analysis.ipynb`                     | Performs dimensionality reduction, clustering, and neighborhood analysis to interpret latent-space shifts induced by perturbations.                          |
-| `Helical Coding Challenge Computational Biology.pdf` | Official challenge brief (Helical AI).                                                                                                                       |
-| `slides/` *(optional)*                               | One-slide summaries per task for final submission.                                                                                                           |
+This repository contains the Helical Computational Biology Coding Challenge submission focused on amyotrophic lateral sclerosis (ALS). The work simulates knock-up and knock-down perturbations for ALS-associated genes, embeds the resulting expression profiles with GeneFormer_V2 (gf-12L-95M-i4096), and interprets how those perturbations reorganise cell states in latent space.
+
+Deliverables include:
+
+- Modular perturbation utilities for AnnData objects (dense or sparse).
+- GeneFormer-ready preprocessing and embedding workflows.
+- Quantitative metrics for clustering quality, disease-to-healthy trajectory shifts, and neighbourhood composition.
+- Reusable notebooks that document the full analysis pipeline end-to-end.
 
 ---
 
-## ⚙️ Environment Setup
+## Repository Layout
 
-### Requirements
+| Path | Description |
+| --- | --- |
+| `analysis.py` | Helper class for analysing latent embeddings (distances, neighbourhoods, clustering metrics). |
+| `data_utils.py` | Utilities for ALS gene lists, dataset filtering, and GeneFormer preprocessing. |
+| `main.py` | Scriptable entry point that generates simulated perturbations and optional UMAP plots. |
+| `perturbation.py` | Higher-level perturbation helpers (batch simulations, validation, combined matrices). |
+| `third attempt/task1_perturbation_workflow.ipynb` | Notebook that builds the perturbation pipeline and validates per-gene edits. |
+| `third attempt/task2_als_perturbations.ipynb` | Notebook that applies perturbations to ALS genes and embeds them with GeneFormer_V2. |
+| `third attempt/task3_embedding_analysis.ipynb` | Notebook that interprets embedding shifts (dimensionality reduction, clustering, rescue scores). |
+| `third attempt/outputs/` | Generated figures, metrics tables, and intermediate artefacts saved by the notebooks. |
+| `requirements.txt` | Python dependencies known to work for the challenge environment. |
 
-* Python ≥ 3.10
-* `torch --index-url https://download.pytorch.org/whl/cu126`, `transformers`, `anndata`, `scanpy`, `numpy`, `pandas`, `seaborn`, `matplotlib`, `scikit-learn`
-* `helical` or `geneformer` Python package (local install for foundation model access)
-* GPU recommended (CUDA ≥ 11.8)
+---
 
-### Installation
+## Task Documentation
+
+- [Task 1 - In-Silico Perturbation Workflow](docs/TASK1.md)
+- [Task 2 - ALS Gene Perturbations](docs/TASK2.md)
+- [Task 3 - Embedding Analysis and Biological Interpretation](docs/TASK3.md)
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10 (3.9 works if Scanpy is installed from conda-forge).
+- GPU with CUDA 11.8 or newer is recommended for GeneFormer embeddings.
+- Python packages: PyTorch (CUDA build if available), transformers, anndata, scanpy, numpy, pandas, seaborn, matplotlib, scikit-learn, tqdm.
+- Access to GeneFormer weights via the `helical` package or a local checkpoint.
+
+### Environment Setup
 
 ```bash
 git clone https://github.com/stef1949/helical-coding-challenge.git
 cd helical-coding-challenge
+python -m venv .venv
+# On Windows use: .venv\Scripts\activate
+source .venv/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-If using the **Helical local SDK**:
+Optional extras:
+
+- Install `helical` when GeneFormer weights are available locally: `pip install helical`.
+- Adjust the `torch` wheel URL in `requirements.txt` to match your CUDA toolkit.
+
+### Dataset Access
+
+The ALS dataset (GSE174332, BA4 region) is provided as a pre-filtered `.h5ad` file via the Helical S3 bucket referenced inside the notebooks. Place the file in `localtools/` (default expected path in `main.py`) or update the `INPUT_H5AD` constant to point to your copy.
+
+---
+
+## Running the Workflows
+
+### Notebook-driven analysis
+
+1. `third attempt/task1_perturbation_workflow.ipynb`  
+   Builds and validates the perturbation utilities, illustrating per-gene knock-up and knock-down edits on AnnData objects.
+
+2. `third attempt/task2_als_perturbations.ipynb`  
+   Applies the workflow to canonical ALS genes (SOD1, TARDBP, FUS, C9orf72), embeds the perturbations with GeneFormer_V2, and records latent representations to disk.
+
+3. `third attempt/task3_embedding_analysis.ipynb`  
+   Quantifies latent-space consequences with dimensionality reduction, neighbourhood composition, silhouette scores, and disease-to-healthy rescue metrics.
+
+Each notebook contains configuration cells at the top for setting data paths, sampling options, and output locations.
+
+### Command-line batch generation
+
+Use `main.py` when you want to generate perturbations without launching notebooks:
 
 ```bash
-pip install helical
+python main.py \
+  --input localtools/counts_combined_filtered_BA4_sALS_PN.h5ad \
+  --targets SOD1 TARDBP FUS C9orf72 \
+  --subset 'Condition == "ALS" and CellClass == "Neuron" and Region == "BA4"' \
+  --output als_simulated.h5ad
 ```
 
----
+The script resolves gene symbols against `var_names`, creates knock-up and knock-down variants, concatenates them with the baseline AnnData object, and writes the combined data. Disable plotting by setting `MAKE_PLOTS = False` near the top of the file when running on headless infrastructure.
 
-## 🧠 Tasks
+### Reusable utilities
 
-### **Task 1 — In-Silico Perturbation Workflow**
-
-Develops a flexible simulation framework to mimic *knock-up* and *knock-down* effects:
-
-* Parameterized for multiple gene targets
-* Includes scaling options for magnitude of perturbation
-* Outputs standardized expression matrices ready for model embedding
-
-**Notebook:** `task1_perturbation_workflow.ipynb`
-**Outputs:** `perturbed_expression.h5ad`
+- `GenePerturbation` (`perturbation.py`) batch generates perturbations, assembles combined AnnData matrices, and validates per-gene edits.
+- `EmbeddingAnalyzer` (`analysis.py`) computes rescue scores, neighbour composition, clustering metrics, and provides helper plots for embedding interpretation.
+- `data_utils.py` hosts quality-of-life helpers for ALS gene lists, data filtering, and GeneFormer preprocessing (including preservation of raw counts in `.layers['counts']`).
 
 ---
 
-### **Task 2 — ALS Gene Perturbations**
+## Outputs and Reporting
 
-Applies the perturbation workflow to **ALS-specific genes** (e.g. *SOD1, TARDBP, FUS, C9orf72*), integrating both **control** and **diseased** cell populations.
-Embeds perturbation effects using **GeneFormer_V2 (gf-12L-95M-i4096)** into a biologically informed latent space.
+Generated artefacts are written to `third attempt/outputs/`:
 
-**Notebook:** `task2_als_perturbations.ipynb`
-**Dataset:**
+- `images/` folder with UMAPs, clustering comparisons, volcano plots, and scenario dashboards.
+- `embedding_metrics.csv` containing clustering quality and rescue statistics.
+- `ALS_embeddings.npy` and `metadata.csv` for downstream reuse in external tooling.
 
-* `GSE174332` (Motor cortex, BA4)
-* Provided via:
-  [Helical Candidate Dataset (S3)](https://s3.eu-west-2.amazonaws.com/helical-candidate-datasets/counts_combined_filtered_BA4...)
-  **Outputs:**
-* `ALS_embeddings.npy`
-* `metadata.csv`
+Key visualisations referenced in presentations:
 
----
-
-### **Task 3 — Embedding Interpretation**
-
-Analyzes the embedding space for biological insights:
-
-* **Dimensionality reduction:** UMAP / PCA
-* **Cluster metrics:** Silhouette score, Davies–Bouldin index
-* **Neighborhood shifts:** Quantifies trajectory movement between perturbed and baseline embeddings
-* **Biological interpretation:** Highlights potential compensatory or dysregulated gene networks in ALS
-
-**Notebook:** `task3_embedding_analysis.ipynb`
-**Outputs:**
-
-* UMAP plots
-* Perturbation shift heatmaps
-* Summary metrics table (`embedding_metrics.csv`)
+- `task3_optimal_clusters.png` summarises the k-means versus Leiden comparison.
+- `task3_als_control_distances.png` highlights cell types with the largest disease-control separation.
+- Scenario comparison dashboards illustrate disease modelling, rescue, and control perturbations.
 
 ---
 
-## 📊 Evaluation Summary
+## Reproducibility Notes
 
-| Criterion                         | Implementation Focus                                                                      |
-| --------------------------------- | ----------------------------------------------------------------------------------------- |
-| **Scientific rigor & creativity** | Designed modular, biologically grounded perturbation pipeline with parameterized control. |
-| **Proper dataset use**            | Integrated ALS dataset (GSE174332) via preprocessed count matrices.                       |
-| **Interpretation depth**          | Quantified embedding displacement and gene-level contributions.                           |
-| **Reproducibility**               | Fully documented Jupyter notebooks with fixed random seeds and version metadata.          |
+- Random seeds are fixed inside notebooks and helper modules for deterministic sampling.
+- GeneFormer runs require consistent model checkpoints; pin `geneformer` or `helical` versions when sharing results.
+- Ensure the CUDA toolkit matches the installed PyTorch wheel when using GPU acceleration.
+- Perturbation functions copy the input AnnData to avoid modifying raw datasets in place.
 
 ---
 
-## 🧪 Key Visualizations
+## References
 
-### Task 1: Cell Type Distribution
-![Cell Type Distribution](./third%20attempt/outputs/images/task3_celltype_distribution.png)
-*Distribution of cell types across ALS and control conditions*
-
-### Task 2: Embedding Visualization
-![Scenario 2 Embeddings](./third%20attempt/outputs/task3_scenario1_disease_rescue_disease_rescue_embeddings.png)
-*UMAP and t-SNE embeddings colored by cell type, condition, and brain region*
-
-### Task 3: Analysis Results
-
-#### Clustering Comparison
-![Clustering Comparison](./third%20attempt/outputs/images/task3_clustering_comparison.png)
-*K-means vs Leiden clustering methods showing optimal cluster identification*
-
-#### ALS vs Control Distances
-![ALS-Control Distances](./third%20attempt/outputs/task3_als_control_distances.png)
-*Cell types showing largest embedding space distances between ALS and control populations*
-
-#### Differential Expression
-![Volcano Plot](./third%20attempt/outputs/task3_volcano_plot.png)
-*Differential expression analysis highlighting significant genes (FDR < 0.05, |log2FC| > 0.5)*
-
-#### Perturbation Scenario Comparison
-![Scenario Comparison](./third%20attempt/outputs/task3_scenario_comparison.png)
-*Quality metrics across disease rescue, disease modeling, and control scenarios*
+- GeneFormer documentation: https://helical.readthedocs.io/en/latest/models/geneformer/
+- ALS dataset (GSE174332): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE174332
+- Scanpy: https://scanpy.readthedocs.io/
 
 ---
 
-## 🧭 References
+## Citation
 
-* GeneFormer: [https://helical.readthedocs.io/en/latest/models/geneformer/](https://helical.readthedocs.io/en/latest/models/geneformer/)
-* Dataset: [GSE174332 — ALS motor cortex single-cell RNA-seq](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE174332)
-
----
-
-## 📦 Citation
-
-If reproducing or extending this work:
+If you reuse or extend this work, please cite:
 
 ```
-Ritchie, S. (2025). In-Silico Gene Perturbation and Embedding Analysis for ALS. Helical Computational Biology Challenge Submission.
+Ritchie, S. (2025). In-silico Gene Perturbation and Embedding Analysis for ALS. Helical Computational Biology Challenge Submission.
 ```

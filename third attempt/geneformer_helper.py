@@ -15,10 +15,10 @@ def get_geneformer_method1():
     """
     try:
         from helical import Geneformer, GeneformerConfig
-        print("✓ Method 1: Helical new API")
+        print("-> Method 1: Helical new API")
         return Geneformer, GeneformerConfig, "helical_new"
     except ImportError as e:
-        print(f"✗ Method 1 failed: {e}")
+        print(f"- Method 1 failed: {e}")
         return None, None, None
 
 def get_geneformer_method2():
@@ -28,10 +28,10 @@ def get_geneformer_method2():
     try:
         from helical.models.geneformer.model import Geneformer
         from helical.models.geneformer.geneformer_config import GeneformerConfig
-        print("✓ Method 2: Helical models API")
+        print("-> Method 2: Helical models API")
         return Geneformer, GeneformerConfig, "helical_models"
     except ImportError as e:
-        print(f"✗ Method 2 failed: {e}")
+        print(f"- Method 2 failed: {e}")
         return None, None, None
 
 def get_geneformer_method3():
@@ -40,10 +40,10 @@ def get_geneformer_method3():
     """
     try:
         from transformers import AutoModel, AutoTokenizer
-        print("✓ Method 3: Direct Transformers")
+        print("-> Method 3: Direct Transformers")
         return AutoModel, AutoTokenizer, "transformers"
     except ImportError as e:
-        print(f"✗ Method 3 failed: {e}")
+        print(f"- Method 3 failed: {e}")
         return None, None, None
 
 def initialize_geneformer():
@@ -62,10 +62,10 @@ def initialize_geneformer():
         try:
             config = Config(model_name="gf-12L-95M-i4096", batch_size=10, device="cuda")
             model = Model(config)
-            print(f"✓ Successfully initialized with {method}")
+            print(f"-> Successfully initialized with {method}")
             return model, config, method
         except Exception as e:
-            print(f"✗ Failed to initialize with {method}: {e}\n")
+            print(f"- Failed to initialize with {method}: {e}\n")
     
     # Try Method 2: Helical models API
     Model, Config, method = get_geneformer_method2()
@@ -73,10 +73,10 @@ def initialize_geneformer():
         try:
             config = Config(model_name="gf-12L-95M-i4096", batch_size=10, device="cuda")
             model = Model(config)
-            print(f"✓ Successfully initialized with {method}")
+            print(f"-> Successfully initialized with {method}")
             return model, config, method
         except Exception as e:
-            print(f"✗ Failed to initialize with {method}: {e}\n")
+            print(f"- Failed to initialize with {method}: {e}\n")
     
     # Try Method 3: Direct transformers
     Model, Tokenizer, method = get_geneformer_method3()
@@ -85,13 +85,13 @@ def initialize_geneformer():
             model_name = "ctheodoris/Geneformer"
             model = Model.from_pretrained(model_name, trust_remote_code=True)
             tokenizer = Tokenizer.from_pretrained(model_name, trust_remote_code=True)
-            print(f"✓ Successfully initialized with {method}")
+            print(f"-> Successfully initialized with {method}")
             return model, tokenizer, method
         except Exception as e:
-            print(f"✗ Failed to initialize with {method}: {e}\n")
+            print(f"- Failed to initialize with {method}: {e}\n")
     
-    print("✗ All GeneFormer initialization methods failed")
-    print("→ Will use PCA fallback for embeddings\n")
+    print("- All GeneFormer initialization methods failed")
+    print("-> Will use PCA fallback for embeddings\n")
     return None, None, None
 
 def prepare_data_for_geneformer(adata, sample_size=None):
@@ -190,11 +190,11 @@ def generate_embeddings_helical(adata, model, config, method, sample_size=None):
                         f"Unsupported embedding type returned from helical GeneFormer: {type(embeddings)}"
                     )
 
-        print(f"✓ Generated embeddings with shape: {embeddings.shape}")
+        print(f"-> Generated embeddings with shape: {embeddings.shape}")
         return embeddings, sample_idx
         
     except Exception as e:
-        print(f"✗ Error generating embeddings: {e}")
+        print(f"- Error generating embeddings: {e}")
         import traceback
         traceback.print_exc()
         raise
@@ -274,12 +274,12 @@ def generate_embeddings_direct_geneformer(adata, sample_size=None):
                     print(f"  Processed {batch_end}/{n_cells} cells...")
         
         embeddings = np.array(embeddings_list)
-        print(f"✓ Generated embeddings with shape: {embeddings.shape}")
+        print(f"-> Generated embeddings with shape: {embeddings.shape}")
         
         return embeddings, sample_idx
         
     except Exception as e:
-        print(f"✗ Direct GeneFormer failed: {e}")
+        print(f"- Direct GeneFormer failed: {e}")
         raise
 
 def generate_embeddings_transformers(adata, model, tokenizer, sample_size=None):
@@ -335,11 +335,11 @@ def generate_embeddings_transformers(adata, model, tokenizer, sample_size=None):
                     print(f"  Processed {batch_end}/{n_cells} cells...")
         
         embeddings = np.vstack(embeddings_list)
-        print(f"✓ Generated embeddings with shape: {embeddings.shape}")
+        print(f"-> Generated embeddings with shape: {embeddings.shape}")
         return embeddings, sample_idx
         
     except Exception as e:
-        print(f"✗ Error generating embeddings: {e}")
+        print(f"- Error generating embeddings: {e}")
         raise
     """
     Generate embeddings using transformers GeneFormer.
@@ -393,11 +393,11 @@ def generate_embeddings_transformers(adata, model, tokenizer, sample_size=None):
                     print(f"  Processed {batch_end}/{n_cells} cells...")
         
         embeddings = np.vstack(embeddings_list)
-        print(f"✓ Generated embeddings with shape: {embeddings.shape}")
+        print(f"-> Generated embeddings with shape: {embeddings.shape}")
         return embeddings, sample_idx
         
     except Exception as e:
-        print(f"✗ Error generating embeddings: {e}")
+        print(f"- Error generating embeddings: {e}")
         raise
 
 def generate_pca_embeddings(adata, n_components=50, sample_size=None):
@@ -430,7 +430,7 @@ def generate_pca_embeddings(adata, n_components=50, sample_size=None):
     
     embeddings = adata_hvg.obsm['X_pca']
     
-    print(f"✓ Generated PCA embeddings with shape: {embeddings.shape}")
+    print(f"-> Generated PCA embeddings with shape: {embeddings.shape}")
     print(f"  Variance explained: {adata_hvg.uns['pca']['variance_ratio'].sum():.2%}")
     
     return embeddings, sample_idx
@@ -477,8 +477,8 @@ def generate_embeddings(adata, sample_size=None, use_pca_fallback=True, force_pc
         embeddings, sample_idx = generate_embeddings_direct_geneformer(adata, sample_size)
         return embeddings, sample_idx, 'geneformer_direct'
     except Exception as e:
-        print(f"⚠ Direct GeneFormer failed: {str(e)[:100]}")
-        print("→ Trying helical approach...\n")
+        print(f"[warn] Direct GeneFormer failed: {str(e)[:100]}")
+        print("-> Trying helical approach...\n")
     
     # Try 2: Initialize GeneFormer via helical
     model, tokenizer, method = initialize_geneformer()
@@ -498,10 +498,10 @@ def generate_embeddings(adata, sample_size=None, use_pca_fallback=True, force_pc
                 )
                 return embeddings, sample_idx, 'geneformer_transformers'
         except Exception as e:
-            print(f"\n⚠ GeneFormer embedding failed: {str(e)[:100]}")
+            print(f"\n[warn] GeneFormer embedding failed: {str(e)[:100]}")
             if not use_pca_fallback:
                 raise
-            print("→ Falling back to PCA...\n")
+            print("-> Falling back to PCA...\n")
     
     # Try 3: PCA fallback
     if use_pca_fallback:
@@ -519,7 +519,7 @@ if __name__ == "__main__":
     model, config, method = initialize_geneformer()
     
     if model is not None:
-        print(f"\n✓ GeneFormer available via: {method}")
+        print(f"\n-> GeneFormer available via: {method}")
     else:
-        print("\n✗ GeneFormer not available")
-        print("→ PCA fallback will be used")
+        print("\n- GeneFormer not available")
+        print("-> PCA fallback will be used")

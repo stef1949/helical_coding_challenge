@@ -57,7 +57,7 @@ def preprocess_for_geneformer(
     """
     adata = adata.copy()
     
-    print(f"Starting: {adata.n_obs} cells × {adata.n_vars} genes")
+    print(f"Starting: {adata.n_obs} cells x {adata.n_vars} genes")
     
     # QC metrics
     sc.pp.calculate_qc_metrics(adata, percent_top=None, log1p=False, inplace=True)
@@ -67,7 +67,7 @@ def preprocess_for_geneformer(
     if max_genes:
         sc.pp.filter_cells(adata, max_genes=max_genes)
     sc.pp.filter_genes(adata, min_cells=min_cells)
-    print(f"After filtering: {adata.n_obs} cells × {adata.n_vars} genes")
+    print(f"After filtering: {adata.n_obs} cells x {adata.n_vars} genes")
     
     # Store raw counts (materialize to in-memory arrays/sparse matrices; handle h5/backed datasets)
     x = adata.X
