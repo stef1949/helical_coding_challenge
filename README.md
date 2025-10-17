@@ -112,10 +112,33 @@ Analyzes the embedding space for biological insights:
 
 ---
 
-## 🧪 Example Output (Task 3)
+## 🧪 Key Visualizations
 
-![UMAP of ALS Perturbations](third attempt\outputs\task3_scenario1_disease_rescue_disease_rescue_embeddings.png)
-**Figure:** Visualization of *in-silico* knock-up/down embeddings showing distinct clustering and trajectory shifts between ALS-perturbed and healthy control states.
+### Task 1: Cell Type Distribution
+![Cell Type Distribution](./third%20attempt/outputs/images/task3_celltype_distribution.png)
+*Distribution of cell types across ALS and control conditions*
+
+### Task 2: Embedding Visualization
+![Scenario 2 Embeddings](./third%20attempt/outputs/task3_scenario1_disease_rescue_disease_rescue_embeddings.png)
+*UMAP and t-SNE embeddings colored by cell type, condition, and brain region*
+
+### Task 3: Analysis Results
+
+#### Clustering Comparison
+![Clustering Comparison](./third%20attempt/outputs/images/task3_clustering_comparison.png)
+*K-means vs Leiden clustering methods showing optimal cluster identification*
+
+#### ALS vs Control Distances
+![ALS-Control Distances](./third%20attempt/outputs/task3_als_control_distances.png)
+*Cell types showing largest embedding space distances between ALS and control populations*
+
+#### Differential Expression
+![Volcano Plot](./third%20attempt/outputs/task3_volcano_plot.png)
+*Differential expression analysis highlighting significant genes (FDR < 0.05, |log2FC| > 0.5)*
+
+#### Perturbation Scenario Comparison
+![Scenario Comparison](./third%20attempt/outputs/task3_scenario_comparison.png)
+*Quality metrics across disease rescue, disease modeling, and control scenarios*
 
 ---
 
