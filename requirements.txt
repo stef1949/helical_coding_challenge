@@ -1,0 +1,11 @@
+numpy
+pandas
+scanpy
+anndata
+scipy
+scikit-learn
+seaborn
+matplotlib
+louvain==0.8.2
+helical
+torch==2.6.0 --index-url https://download.pytorch.org/whl/cu126

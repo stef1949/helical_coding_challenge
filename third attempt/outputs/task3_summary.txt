@@ -1,0 +1,42 @@
+
+===============================================================
+                    TASK 3 ANALYSIS SUMMARY
+===============================================================
+
+## Dataset Overview
+- Total cells: 112,014
+- Total genes: 22,832
+- ALS samples: 66,960
+- Control samples: 45,054
+- Unique cell types: 19
+
+## Embedding Analysis
+- Best performing scenario: scenario3_control_disease_rescue
+- Optimal cluster number: 6
+- Best clustering method: leiden
+- Silhouette score: 0.363
+
+## ALS vs Control Findings
+- Most affected cell type: Fibro
+- Significant DEGs (FDR<0.05, |logFC|>0.5): 3880
+  • Upregulated in ALS: 2983
+  • Downregulated in ALS: 897
+
+## Key Outputs Generated
+1. Dimensionality reduction (UMAP, t-SNE)
+2. Cluster analysis and validation
+3. ALS-Control comparison in embedding space
+4. Differential expression analysis
+5. Pathway-ready gene lists
+
+## Files Saved
+- Cell type distribution plots
+- Embedding visualizations (UMAP, t-SNE)
+- Clustering comparison
+- ALS-Control distance analysis
+- Volcano plot
+- DEG heatmap
+- Significant DEGs CSV
+- Scenario comparison
+
+===============================================================
