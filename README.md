@@ -30,6 +30,56 @@ Deliverables include:
 
 ---
 
+## Results
+
+### **Task 1**
+**Knockdown**
+Applied knock-down (factor=0.1) to MT-CO2 in 112014 cells  
+  Mean expression: 36.390 → 3.639
+
+Applied knock-down (factor=0.1) to DPP10 in 112014 cells  
+  Mean expression: 38.618 → 3.862
+  
+Applied knock-down (factor=0.1) to NRXN3 in 112014 cells  
+  Mean expression: 38.911 → 3.891
+
+Applied knock-up (factor=5.0) to LSAMP in 112014 cells  
+  Mean expression: 39.676 → 198.464
+
+Applied knock-up (factor=5.0) to NRXN1 in 112014 cells  
+  Mean expression: 39.724 → 198.718
+
+**Multi-Gene Perturbation Summary**
+
+| gene   | type                     | n_cells | mean_before | mean_after | fold_change |
+|:-------|:--------------------------|--------:|-------------:|------------:|-------------:|
+| MT-CO2 | knock-down (factor = 0.1) | 112 014 | 36.390 067   | 3.639 007   | 0.10         |
+| DPP10  | knock-down (factor = 0.1) | 112 014 | 38.617 798   | 3.861 780   | 0.10         |
+| NRXN3  | knock-down (factor = 0.1) | 112 014 | 38.910 592   | 3.891 059   | 0.10         |
+| LSAMP  | knock-up (factor = 5.0)   | 112 014 | 39.675 710   | 198.464 483 | 5.00         |
+| NRXN1  | knock-up (factor = 5.0)   | 112 014 | 39.723 731   | 198.717 810 | 5.00         |
+
+### **Task 2**
+
+### **Task 3**
+
+  <p>
+    <picture>
+       <img alt="ALS Disease Rescue Embeddings" src="third attempt\outputs\task3_scenario1_disease_rescue_disease_rescue_embeddings.png" height="400">
+    </picture>
+    <picture>
+       <img alt="Optimal Clusters" src="third attempt\outputs\task3_optimal_clusters.png" height="400">
+    </picture>
+    <picture>
+       <img alt="Volcano Plot" src="third attempt\outputs\task3_volcano_plot.png" height="400">
+    </picture>
+    <picture>
+       <img alt="Volcano Plot" src="third attempt\outputs\task3_deg_heatmap.png" style="transform: rotate(90deg)" height="400">
+    </picture>
+  </P>
+
+---
+
 ## ALS Fold-Change Reference Data
 
 The following table lists **validated fold-change observations in ALS** across major molecular layers. All data are from peer-reviewed human studies with reproducible or replicated findings. Where precise fold changes were not reported, qualitative trends are indicated.
